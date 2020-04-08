@@ -92,26 +92,22 @@ void dbsu10_home_environment(OOCSIEvent event) {
     // Needs te be added
     wave1.setAmplitude(amp);
   }
+if (chime.trigger() && (eventPlaying == false)) {
+      eventPlaying = true;
+      sound.trigger();
+      delay(2000); //or another number    depending on the sound length
+      eventPlaying = false 
+}
  // product_data5 will become switch of recipe step
   if (event.has("product_data5")) {
     chime.trigger();
   }
   //When data from the door knob indicates cold weather 
- if (temp >= 10){
- }
 if (event.has("TemperatureC")) {
     float amp = map(event.getInt("TemperatureC", 0), 0, 220, 0, 1);
     wave1.setAmplitude(amp);
  }
-    
- if (canopen.trigger(); && (eventPlaying == false)) {
-      eventPlaying = true;
-      sound.trigger();
-      delay(2000); //or another number    depending on the sound length
-      eventPlaying = false 
- }
-
-   if (event.has("product_data5")) {
+    if (event.has("product_data5")) {
     canopen.trigger();
   }
    //If frequency of knife differs 
