@@ -1,0 +1,108 @@
+import nl.tue.id.oocsi.*;
+import nl.tue.id.oocsi.client.*;
+import nl.tue.id.oocsi.client.behavior.*;
+import nl.tue.id.oocsi.client.behavior.state.*;
+import nl.tue.id.oocsi.client.data.*;
+import nl.tue.id.oocsi.client.protocol.*;
+import nl.tue.id.oocsi.client.services.*;
+import nl.tue.id.oocsi.client.socket.*;
+
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+import nl.tue.id.oocsi.*;
+
+// ******************************************************
+// This example requires a running OOCSI server!
+//
+// How to do that? Check: Examples > Tools > LocalServer
+//
+// More information how to run an OOCSI server
+// can be found here: https://iddi.github.io/oocsi/)
+// ******************************************************
+
+import ddf.minim.*;
+import ddf.minim.ugens.*;
+
+Minim       minim;
+AudioOutput out;
+Oscil       wave1;
+Oscil       wave2;
+AudioSample chime;
+AudioSample canopen;
+AudioSample chopcourgette;
+AudioSample clock;
+AudioSample fireplace;
+AudioSample italian;
+AudioSample mexican;
+AudioSample minceherbs;
+AudioSample pepper;
+AudioSample reduceheat;
+AudioSample stomach;
+AudioSample turnonheat;
+
+void setup() {
+  size(200, 200);
+  noStroke();
+
+  // connect to OOCSI server
+  OOCSI oocsi = new OOCSI(this, "group3conn", "oocsi.id.tue.nl");
+
+  // subscribe to DBSU10 channel
+  oocsi.subscribe("dbsu10_home_environment");
+
+  minim = new Minim(this);
+
+  // use the getLineOut method of the Minim object to get an AudioOutput object
+  out = minim.getLineOut();
+
+  // create a sine wave Oscil, set to 220 Hz, at 0.5 amplitude
+  wave1 = new Oscil( 220, 0.2f, Waves.SINE );
+  // patch the Oscil to the output
+  wave1.patch( out );
+
+  // this audio player can play sound files in mp3 or wav format
+  // be careful with the size of wav files, they might be BIG
+  chime = minim.loadSample("chime.wav");
+  canopen = minim.loadSample("canopen.wav");
+  chopcourgette = minim.loadSample("chopcourgette.wav");
+  clock = minim.loadSample("clock.wav");
+  fireplace = minim.loadSample("fireplace.wav");
+  italian = minim.loadSample("italian.wav");
+  mexican = minim.loadSample("mexican.wav");
+  minceherbs = minim.loadSample("minceherbs.wav");
+  pepper = minim.loadSample("pepper.wav");
+  reduceheat = minim.loadSample("reduceheat.wav");
+  stomach = minim.loadSample("stomach.wav");
+  turnonheat = minim.loadSample("turnonheat.wav");
+}
+
+void draw() {
+}
+
+void dbsu10_home_environment(OOCSIEvent event) {
+// Let the sinoid in the background differ when frequency of chopping changes
+  if (event.has("frequency")) {
+    float amp = map(event.getInt("frequency", 0), 0, 220, 0, 1);
+    // set volume of the sinoid to change with weight changes float vol 
+    // Needs te be added
+    wave1.setAmplitude(amp);
+  }
+ // product_data5 will become switch of recipe step
+  if (event.has("product_data5")) {
+    chime.trigger();
+  }
+  //When data from the door knob indicates cold weather 
+if (event.has("TemperatureC")) {
+    float amp = map(event.getInt("TemperatureC", 0), 0, 220, 0, 1);
+    wave1.setAmplitude(amp);
+  }
+   if (event.has("product_data5")) {
+    canopen.trigger();
+  
+ 
+}
