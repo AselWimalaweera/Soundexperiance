@@ -194,3 +194,4 @@ if (event.has("TemperatureC")) {
    if (event.has("product_data5")) {
     turnonheat.trigger();
    }
+}
