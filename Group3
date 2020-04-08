@@ -92,12 +92,6 @@ void dbsu10_home_environment(OOCSIEvent event) {
     // Needs te be added
     wave1.setAmplitude(amp);
   }
-if (chime.trigger() && (eventPlaying == false)) {
-      eventPlaying = true;
-      sound.trigger();
-      delay(2000); //or another number    depending on the sound length
-      eventPlaying = false 
-}
  // product_data5 will become switch of recipe step
   if (event.has("product_data5")) {
     chime.trigger();
