@@ -85,6 +85,22 @@ void draw() {
 }
 
 void dbsu10_home_environment(OOCSIEvent event) {
+//below are the condtions needed to trigger a certain sound 
+//for temperature 
+  int temp = 20;
+
+        if (temp >=20) {
+            canopen.trigger();
+        }
+
+        else if (temp < 20) {
+            turnonheat.trigger(); 
+        }
+//for frequency
+
+
+
+
 // Let the sinoid in the background differ when frequency of chopping changes
   if (event.has("frequency")) {
     float amp = map(event.getInt("frequency", 0), 0, 220, 0, 1);
