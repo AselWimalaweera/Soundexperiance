@@ -96,8 +96,16 @@ void dbsu10_home_environment(OOCSIEvent event) {
         else if (temp < 20) {
             turnonheat.trigger(); 
         }
-//for frequency
+//for frequency of our cutting borad(Chime,chopcourgette,minceherbs,reduceheat,turnonheat)
+// for frequncy of egg timer(clock)
+// For colour of flower pot for herbs(italian , mexican)
+// For weighing scale data to measure flower pot (pepper)
+int weight = 320;
 
+        if (temp >=300) {
+            pepper.trigger();
+       }
+// Frequency of lid on candy jar (frequencyC)(stomach)
 
 
 
@@ -120,7 +128,7 @@ if (event.has("TemperatureC")) {
     if (event.has("product_data2")) {
     canopen.trigger();
   }
-   //If frequency of knife differs 
+   //If frequency of knife differs when to sound when veggies are cut 
    if (event.has("frequency")) {
     float amp = map(event.getInt("frequency", 0), 0, 400, 0, 1);
     wave1.setAmplitude(amp);
