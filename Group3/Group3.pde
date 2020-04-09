@@ -55,6 +55,7 @@ void setup() {
   // subscribe to DBSU10 channel
   oocsi.subscribe("dbsu10_home_environment");
   oocsi.subscribe("recipeChannel");
+  oocsi.subscribe("cuttingSpeedChannel");
 
   minim = new Minim(this);
 
@@ -129,7 +130,7 @@ void handleOOCSIEvent(OOCSIEvent event) {
 
     if (pot_color.equals("RED")){
 
-      while (sound_playing) {}
+      while (sound_playing == true) {}
       sound_playing = true;
       mexican.trigger();
       delay(2000);
@@ -138,7 +139,7 @@ void handleOOCSIEvent(OOCSIEvent event) {
       
     } else if (pot_color.equals("BLUE")) {
 
-      while (sound_playing) {}
+      while (sound_playing == true) {}
       sound_playing = true;
       italian.trigger();
       delay(2000);
@@ -150,42 +151,28 @@ void handleOOCSIEvent(OOCSIEvent event) {
   }
 
 
+  // Cutting of stuff
+  if (event.has("frequency")){
+    int freq = event.getInt("frequency", 0);
+
+    switch (freq){
+    case 1:
+      chopcourgette.trigger();
+      break;
+    case 2:
+      minceherbs.trigger();
+      break;
+    }
+  }
+
+
+
+
 
 //for frequency of our cutting borad(Chime,chopcourgette,minceherbs,reduceheat,turnonheat)
 
 /*
 
-// For colour of flower pot for herbs(italian , mexican)
-
- if (event.has("Flowerpot"){
- event.getString("Flowerpot") {
-      if ( "Flowerpot" == "RED") {
-        mexican.trigger();
-} 
- if ( "Flowerpot" == "BLUE" {
-        italian.trigger();
-} 
-}
-}
-
-// For weighing scale data to measure flower pot (pepper)
- if (event.has("weight"){
- event.getInt("weight") {
-      if ("weight" >= 30) {
-        pepper.trigger();
-} 
-}
-}
-
-// Frequency of lid on candy jar (frequencyC)(stomach)
-
-//if (event.has("frequencyC"){
-//event.getInt("frequencyC") {
-//     if ( "frequencyC" == 1) {
-//      stomach.trigger();
-//} 
-//}
-//}
 
 
 // Let the sinoid in the background differ when frequency of chopping changes
@@ -209,19 +196,6 @@ void handleOOCSIEvent(OOCSIEvent event) {
     chopcourgette.trigger();
   }
   
-  //Sound from the timer 
-  if (event.has("sound")) {
-    float amp = map(event.getInt("sound", 0), 0, 220, 0, 1);
-    
-    wave1.setAmplitude(amp);
-  }
-  
-   if (event.has("product_data4")) {
-    clock.trigger();
-  }
-  
- 
-
   //Frequcncey of the cutting board 
   if (event.has("frequency")) {
     float amp = map(event.getInt("frequency", 0), 0, 220, 0, 1);
