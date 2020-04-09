@@ -104,17 +104,18 @@ void handleOOCSIEvent(OOCSIEvent event) {
      chime.trigger();
    }
 
+   // Alarm clock
+   if (event.has("SOUND")){
+     if (event.getInt("SOUND", 0) > 0){
+
+       clock.trigger();
+     }
+   }
+
 
 //for frequency of our cutting borad(Chime,chopcourgette,minceherbs,reduceheat,turnonheat)
 
 /*
-// for mirror eggclock
-
-if (event.getBoolean("SOUND", false)) {
-      if ( "SOUND" == true) {
-      clock.trigger();
-      }
-      }
 
 // For colour of flower pot for herbs(italian , mexican)
 
