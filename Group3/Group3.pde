@@ -55,7 +55,10 @@ void setup() {
   // subscribe to DBSU10 channel
   oocsi.subscribe("dbsu10_home_environment");
   oocsi.subscribe("recipeChannel");
+  oocsi.subscribe("DoorAndHallway");
   oocsi.subscribe("cuttingSpeedChannel");
+  oocsi.subscribe("boardWeightChannel");
+  oocsi.subscribe("Swater_Channel");
 
   minim = new Minim(this);
 
