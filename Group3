@@ -87,26 +87,65 @@ void draw() {
 void dbsu10_home_environment(OOCSIEvent event) {
 //below are the condtions needed to trigger a certain sound 
 //for temperature 
-  int temp = 20;
 
-        if (temp >=20) {
-            canopen.trigger();
-        }
-
-        else if (temp < 20) {
-            turnonheat.trigger(); 
-        }
+ if (event.has("temperature"){
+ event.getInt(TemperatureC) {
+      println(TemperatureC);
+      if ( TemperatureC <= 20 {
+        canopen.trigger
+} 
+}
+}
 //for frequency of our cutting borad(Chime,chopcourgette,minceherbs,reduceheat,turnonheat)
-// for frequncy of egg timer(clock)
-// For colour of flower pot for herbs(italian , mexican)
-// For weighing scale data to measure flower pot (pepper)
-int weight = 320;
 
-        if (temp >=300) {
-            pepper.trigger();
-       }
+ if (event.has("temperature"){
+ event.getInt(TemperatureC) {
+      println(TemperatureC);
+      if ( TemperatureC <= 20 {
+        canopen.trigger
+} 
+}
+}
+// for mirror
+
+ if (event.has("temperature"){
+ event.getInt(TemperatureC) {
+      println(TemperatureC);
+      if ( TemperatureC <= 20 {
+        canopen.trigger
+} 
+}
+}
+// For colour of flower pot for herbs(italian , mexican)
+
+ if (event.has("temperature"){
+ event.getInt(TemperatureC) {
+      println(TemperatureC);
+      if ( TemperatureC <= 20 {
+        canopen.trigger
+} 
+}
+}
+// For weighing scale data to measure flower pot (pepper)
+ if (event.has("weight"){
+ event.getInt(weight) {
+      println(weight);
+      if ( TemperatureC <= 20) {
+        pepper.trigger();
+} 
+}
+}
+
 // Frequency of lid on candy jar (frequencyC)(stomach)
 
+ if (event.has("frequencyC"){
+ event.getInt(frequencyC) {
+      println(frequencyC);
+      if ( frequencyC <= 20) {
+        stomach.trigger();
+} 
+}
+}
 
 
 // Let the sinoid in the background differ when frequency of chopping changes
