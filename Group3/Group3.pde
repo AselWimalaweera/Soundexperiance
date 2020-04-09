@@ -86,18 +86,17 @@ void draw() {
 
 void dbsu10_home_environment(OOCSIEvent event) {
 
-//doorknob temp
+   //doorknob temp
+   if (event.has("temperatureC")){
+      TemperatureC = event.getInt("TemperatureC");
+      if ( TemperatureC >= 20) {
+          canopen.trigger();
+      } 
+      if ( TemperatureC < 20) {
+          fireplace.trigger();
+      } 
+   }
 
- if (event.has("temperatureC"){
- event.getInt(TemperatureC) {
-      if ( TemperatureC >= 20 {
-        canopen.trigger();
-} 
-if ( TemperatureC < 20 {
-        fireplace.trigger();
-} 
-}
-}
 
 //for frequency of our cutting borad(Chime,chopcourgette,minceherbs,reduceheat,turnonheat)
 !!
@@ -105,7 +104,7 @@ if ( TemperatureC < 20 {
 // for mirror eggclock
 
 if (event.getBoolean("SOUND", false)) {
-      if ( "SOUND == true) {
+      if ( "SOUND" == true) {
       clock.trigger();
       }
       }
@@ -114,7 +113,7 @@ if (event.getBoolean("SOUND", false)) {
 
  if (event.has("Flowerpot"){
  event.getString("Flowerpot") {
-      if ( "Flowerpot" == "RED" {
+      if ( "Flowerpot" == "RED") {
         mexican.trigger();
 } 
  if ( "Flowerpot" == "BLUE" {
