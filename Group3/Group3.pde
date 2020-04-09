@@ -54,6 +54,7 @@ void setup() {
 
   // subscribe to DBSU10 channel
   oocsi.subscribe("dbsu10_home_environment");
+  oocsi.subscribe("recipeChannel");
 
   minim = new Minim(this);
 
@@ -61,9 +62,9 @@ void setup() {
   out = minim.getLineOut();
 
   // create a sine wave Oscil, set to 220 Hz, at 0.5 amplitude
-  wave1 = new Oscil( 220, 0.2f, Waves.SINE );
+  //wave1 = new Oscil( 220, 0.2f, Waves.SINE );
   // patch the Oscil to the output
-  wave1.patch( out );
+  //wave1.patch( out );
 
   // this audio player can play sound files in mp3 or wav format
   // be careful with the size of wav files, they might be BIG
@@ -84,11 +85,11 @@ void setup() {
 void draw() {
 }
 
-void dbsu10_home_environment(OOCSIEvent event) {
+void handleOOCSIEvent(OOCSIEvent event) {
 
    //doorknob temp
    if (event.has("temperatureC")){
-      TemperatureC = event.getInt("TemperatureC");
+      int TemperatureC = event.getInt("TemperatureC", 0);
       if ( TemperatureC >= 20) {
           canopen.trigger();
       } 
@@ -97,10 +98,16 @@ void dbsu10_home_environment(OOCSIEvent event) {
       } 
    }
 
+   // Chime whenever recipe changes step
+   if (event.has("step")){
+
+     chime.trigger();
+   }
+
 
 //for frequency of our cutting borad(Chime,chopcourgette,minceherbs,reduceheat,turnonheat)
-!!
 
+/*
 // for mirror eggclock
 
 if (event.getBoolean("SOUND", false)) {
@@ -208,4 +215,5 @@ if (event.getBoolean("SOUND", false)) {
    if (event.has("product_data12")) {
     turnonheat.trigger();
    }
+  */
 }
