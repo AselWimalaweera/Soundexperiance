@@ -85,52 +85,48 @@ void draw() {
 }
 
 void dbsu10_home_environment(OOCSIEvent event) {
-//below are the condtions needed to trigger a certain sound 
-//for temperature 
 
- if (event.has("temperature"){
+//doorknob temp
+
+ if (event.has("temperatureC"){
  event.getInt(TemperatureC) {
-      println(TemperatureC);
-      if ( TemperatureC <= 20 {
-        canopen.trigger
+      if ( TemperatureC >= 20 {
+        canopen.trigger();
+} 
+if ( TemperatureC < 20 {
+        fireplace.trigger();
 } 
 }
 }
+
 //for frequency of our cutting borad(Chime,chopcourgette,minceherbs,reduceheat,turnonheat)
+!!
 
- if (event.has("temperature"){
- event.getInt(TemperatureC) {
-      println(TemperatureC);
-      if ( TemperatureC <= 20 {
-        canopen.trigger
-} 
-}
-}
-// for mirror
+// for mirror eggclock
 
- if (event.has("temperature"){
- event.getInt(TemperatureC) {
-      println(TemperatureC);
-      if ( TemperatureC <= 20 {
-        canopen.trigger
-} 
-}
-}
+if (event.getBoolean("SOUND", false)) {
+      if ( "SOUND == true) {
+      clock.trigger();
+      }
+      }
+
 // For colour of flower pot for herbs(italian , mexican)
 
- if (event.has("temperature"){
- event.getInt(TemperatureC) {
-      println(TemperatureC);
-      if ( TemperatureC <= 20 {
-        canopen.trigger
+ if (event.has("Flowerpot"){
+ event.getString("Flowerpot") {
+      if ( "Flowerpot" == "RED" {
+        mexican.trigger();
+} 
+ if ( "Flowerpot" == "BLUE" {
+        italian.trigger();
 } 
 }
 }
+
 // For weighing scale data to measure flower pot (pepper)
  if (event.has("weight"){
- event.getInt(weight) {
-      println(weight);
-      if ( TemperatureC <= 20) {
+ event.getInt("weight") {
+      if ("weight" >= 30) {
         pepper.trigger();
 } 
 }
@@ -138,78 +134,49 @@ void dbsu10_home_environment(OOCSIEvent event) {
 
 // Frequency of lid on candy jar (frequencyC)(stomach)
 
- if (event.has("frequencyC"){
- event.getInt(frequencyC) {
-      println(frequencyC);
-      if ( frequencyC <= 20) {
-        stomach.trigger();
-} 
-}
-}
+//if (event.has("frequencyC"){
+//event.getInt("frequencyC") {
+//     if ( "frequencyC" == 1) {
+//      stomach.trigger();
+//} 
+//}
+//}
 
 
 // Let the sinoid in the background differ when frequency of chopping changes
   if (event.has("frequency")) {
     float amp = map(event.getInt("frequency", 0), 0, 220, 0, 1);
-    // set volume of the sinoid to change with weight changes float vol 
-    // Needs te be added
     wave1.setAmplitude(amp);
   }
+  
  // product_data5 will become switch of recipe step
   if (event.has("product_data1")) {
     chime.trigger();
   }
-  //When data from the door knob indicates cold weather 
-if (event.has("TemperatureC")) {
-    float amp = map(event.getInt("TemperatureC", 0), 0, 220, 0, 1);
-    wave1.setAmplitude(amp);
- }
-    if (event.has("product_data2")) {
-    canopen.trigger();
-  }
+ 
    //If frequency of knife differs when to sound when veggies are cut 
    if (event.has("frequency")) {
+   ()
     float amp = map(event.getInt("frequency", 0), 0, 400, 0, 1);
     wave1.setAmplitude(amp);
   }
    if (event.has("product_data3")) {
     chopcourgette.trigger();
   }
+  
   //Sound from the timer 
   if (event.has("sound")) {
     float amp = map(event.getInt("sound", 0), 0, 220, 0, 1);
     
     wave1.setAmplitude(amp);
   }
+  
    if (event.has("product_data4")) {
     clock.trigger();
   }
-  //Temerature data from the Door knob
-   if (event.has("TemperatureC")) {
-    float amp = map(event.getInt("TemperatureC", 0), 0, 220, 0, 1);
-    
-    wave1.setAmplitude(amp);
-  }
-   if (event.has("product_data5")) {
-    fireplace.trigger();
- }
- //data from herbs available or not
- if (event.has("Flowerpot")) {
-    float amp = map(event.getInt("Flowerpot", 0), 0, 220, 0, 1);
-    wave1.setAmplitude(amp);
-  }
-   if (event.has("product_data6")) {
-    italian.trigger();
-  }
-  //data from herbs available or not
-   if (event.has("Flowerpot")) {
-    float amp = map(event.getInt("Flowerpot", 0), 0, 220, 0, 1);
-    wave1.setAmplitude(amp);
-  }
-   if (event.has("product_data7")) {
-    mexican.trigger();
-  }
   
+ 
+
   //Frequcncey of the cutting board 
   if (event.has("frequency")) {
     float amp = map(event.getInt("frequency", 0), 0, 220, 0, 1);
@@ -224,9 +191,7 @@ if (event.has("TemperatureC")) {
     float amp = map(event.getInt("weight", 0), 0, 220, 0, 1);
     wave1.setAmplitude(amp);
   }
-   if (event.has("product_data9")) {
-    pepper.trigger();
-  }
+ 
   //sound of the intencity if the fire 
   if (event.has("frequency")) {
     float amp = map(event.getInt("frequency", 0), 0, 220, 0, 1);
@@ -235,14 +200,7 @@ if (event.has("TemperatureC")) {
   if (event.has("product_data10")) {
     reduceheat.trigger();
   }
-  //Frequency of the candy jar opening and closing
-  if (event.has("frequencyC")) {
-    float amp = map(event.getInt("frequencyC", 0), 0, 220, 0, 1);
-    wave1.setAmplitude(amp);
-  }
-   if (event.has("product_dat11")) {
-    stomach.trigger();
-  }
+  
   //sound of the intencity if the fire 
  if (event.has("frequency")) {
     float amp = map(event.getInt("frequency", 0), 0, 220, 0, 1);
