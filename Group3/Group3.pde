@@ -87,6 +87,8 @@ void draw() {
 
 void handleOOCSIEvent(OOCSIEvent event) {
 
+   boolean sound_playing = false;
+
    //doorknob temp
    if (event.has("temperatureC")){
       int TemperatureC = event.getInt("TemperatureC", 0);
@@ -111,6 +113,42 @@ void handleOOCSIEvent(OOCSIEvent event) {
        clock.trigger();
      }
    }
+
+  // Herb weight
+  if (event.has("weight")){
+      int Weight_herbs = event.getInt("weight", 0);
+
+      if (Weight_herbs >= 30) {
+        pepper.trigger();
+      } 
+  }
+
+  // Flowerpot 
+  if (event.has("Flowerpot")){
+    String pot_color = event.getString("Flowerpot");
+
+    if (pot_color.equals("RED")){
+
+      while (sound_playing) {}
+      sound_playing = true;
+      mexican.trigger();
+      delay(2000);
+      mexican.stop();
+      sound_playing = false;
+      
+    } else if (pot_color.equals("BLUE")) {
+
+      while (sound_playing) {}
+      sound_playing = true;
+      italian.trigger();
+      delay(2000);
+      italian.stop();
+      sound_playing = false;
+
+    }
+
+  }
+
 
 
 //for frequency of our cutting borad(Chime,chopcourgette,minceherbs,reduceheat,turnonheat)
