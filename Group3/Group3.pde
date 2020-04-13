@@ -102,9 +102,11 @@ void handleOOCSIEvent(OOCSIEvent event) {
       int TemperatureC = event.getInt("TemperatureC", 0);
       if ( TemperatureC >= 20) {
           ambient1.trigger();
+          ambient1.setGain(-15);
       } 
       if ( TemperatureC < 20) {
           ambient2.trigger();
+          ambient2.setGain(-15);
       } 
    }
    
