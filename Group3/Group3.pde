@@ -44,8 +44,8 @@ AudioSample pepper;
 AudioSample reduceheat;
 AudioSample stomach;
 AudioSample turnonheat;
-AudioSample Ambient1;
-AudioSample Ambient2;
+AudioSample ambient1;
+AudioSample ambient2;
 
 void setup() {
   size(200, 200);
@@ -96,6 +96,7 @@ void draw() {
 void handleOOCSIEvent(OOCSIEvent event) {
 
    boolean sound_playing = false;
+   
    //Play Ambient sounds   
    if (event.has("temperatureC")){
       int TemperatureC = event.getInt("TemperatureC", 0);
@@ -106,6 +107,7 @@ void handleOOCSIEvent(OOCSIEvent event) {
           ambient2.trigger();
       } 
    }
+   
    //doorknob temp
    if (event.has("temperatureC")){
       int TemperatureC = event.getInt("TemperatureC", 0);
