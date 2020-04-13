@@ -44,6 +44,8 @@ AudioSample pepper;
 AudioSample reduceheat;
 AudioSample stomach;
 AudioSample turnonheat;
+AudioSample Ambient1;
+AudioSample Ambient2;
 
 void setup() {
   size(200, 200);
@@ -84,6 +86,8 @@ void setup() {
   reduceheat = minim.loadSample("reduceheat.wav");
   stomach = minim.loadSample("stomach.wav");
   turnonheat = minim.loadSample("turnonheat.wav");
+  ambient1 = minim.loadSample("ambient1.wav");
+  ambient2 = minim.loadSample("ambient2.wav");
 }
 
 void draw() {
@@ -92,7 +96,16 @@ void draw() {
 void handleOOCSIEvent(OOCSIEvent event) {
 
    boolean sound_playing = false;
-
+   //Play Ambient sounds   
+   if (event.has("temperatureC")){
+      int TemperatureC = event.getInt("TemperatureC", 0);
+      if ( TemperatureC >= 20) {
+          ambient1.trigger();
+      } 
+      if ( TemperatureC < 20) {
+          ambient2.trigger();
+      } 
+   }
    //doorknob temp
    if (event.has("temperatureC")){
       int TemperatureC = event.getInt("TemperatureC", 0);
@@ -168,7 +181,7 @@ void handleOOCSIEvent(OOCSIEvent event) {
     }
   }
 
-
+ 
 
 
 
